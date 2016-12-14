@@ -1,24 +1,61 @@
-.App {
-  text-align: center;
+body {
+    background-color: darkgreen;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.container {
+    text-align: center;
+}
+.title {
+    background-color: #381F0B;
+    color: white;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.main {
+    background-color: #381F0B;
+    color: black;
+    border-radius: 5px;
+    margin-top: 20px;
 }
 
-.App-intro {
-  font-size: large;
+.main h1 {
+    color: white;
+    padding: 10px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.title img {
+    width: 400px;
+}
+
+.title h1 {
+    margin: 0px;
+}
+
+.table {
+    background-color: white;
+    border-radius: 4px;
+}
+
+
+.table td,.table th {
+    text-align: center;
+}
+
+.userimage {
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    border: 2px solid #381F0B;
+}
+
+.username {
+    margin: 10px;
+}
+
+.fa-sort-amount-desc {
+    margin-left: 10px;
+    color: gray;
+}
+
+.fa-sort-amount-desc.active {
+    color: black;
 }
