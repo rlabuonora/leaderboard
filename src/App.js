@@ -36,11 +36,11 @@ class LeaderBoard extends Component {
         let leaderNodes = this.props.data.map(function(leader, index) {
             return(
                     <tr key={index}>
-                    <td>
+                    <td className="col-xs-1">
                       {index+1}
                     </td>
 
-                    <td>
+                    <td className="col-md-4">
                     <img src={leader.img} alt={leader.username} className="userimage" />
                     <a className="username" href={this.fccLink(leader.username)}>{ leader.username }</a>
                     </td>
@@ -128,7 +128,6 @@ class App extends Component {
       this.loadDataFromServer();
   }
   handleClick(e) {
-      console.log(e.target.id);
       let col = e.target.id;
       if (col === "alltime" && this.state.isRecentActive) {
           this.setState( { isRecentActive: false } );
