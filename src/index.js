@@ -5,7 +5,7 @@ import './index.css';
 
 ReactDOM.render(
   <App
-    url={"https://fcctop100.herokuapp.com/api/fccusers/top/recent"}
+    base_url={"https://fcctop100.herokuapp.com/api/fccusers/top/"}
         />,
   document.getElementById('root')
 );
