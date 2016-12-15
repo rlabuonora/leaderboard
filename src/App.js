@@ -2,7 +2,36 @@ import React, { Component } from 'react';
 import './App.css';
 import $ from 'jquery';
 
+
+class Heading extends Component {
+
+    buildClass() {
+        var cl = "fa fa-sort-amount-desc";
+        if (this.props.isActive) {
+            return cl + " active";
+        }
+        else {
+            return cl;
+        }
+    }
+    render() {
+        return (
+            <th>
+                { this.props.label }
+                <i onClick={this.props.handleClick}
+                   id={this.props.isRecent ? "recent" : "alltime" }
+                   className={this.buildClass()} aria-hidden="true"></i>
+           </th>
+        );
+
+    }
+}
+
 class LeaderBoard extends Component {
+
+    fccLink(username) {
+        return "https://freecodecamp.com/" + username;
+    }
     render() {
         let leaderNodes = this.props.data.map(function(leader, index) {
             return(
@@ -13,13 +42,13 @@ class LeaderBoard extends Component {
 
                     <td>
                     <img src={leader.img} alt={leader.username} className="userimage" />
-                    <a className="username" href="#">{ leader.username }</a>
+                    <a className="username" href={this.fccLink(leader.username)}>{ leader.username }</a>
                     </td>
                     <td>{leader.alltime}</td>
                     <td>{leader.recent}</td>
                     </tr>
             );
-        });
+        }.bind(this));
         return(
                 <div className="main row">
                     <div className="row">
@@ -31,15 +60,17 @@ class LeaderBoard extends Component {
                               <thead>
                                   <tr>
                                       <th>#</th>
-                                      <th>Camper Name</th>
-                                      <th>
-                                          Points in past 30 days
-                                          <i className="fa fa-sort-amount-desc active" aria-hidden="true"></i>
-                                      </th>
-                                      <th>
-                                         All time Points
-                                         <i className="fa fa-sort-amount-desc" aria-hidden="true"></i>
-                                      </th>
+                <th>Camper Name</th>
+                <Heading label="Past 30 days"
+                    isRecent={true}
+                    handleClick={this.props.handleClick }
+                    isActive={this.props.isRecentActive}/>
+                <Heading
+                    isRecent={false}
+                    label="All Time Points"
+                    isActive={!this.props.isRecentActive}
+                    handleClick={this.props.handleClick } />
+     
                                   </tr>
                               </thead>
                               <tbody>
@@ -57,7 +88,8 @@ class App extends Component {
       super();
       this.state = {
           recent: [],
-          alltime: []
+          alltime: [],
+          isRecentActive: true
       }
   }
   loadRecentLeaders() {
@@ -91,13 +123,19 @@ class App extends Component {
   loadDataFromServer() {
     this.loadRecentLeaders();
     this.loadAllTimeLeaders();
-      console.log(this.state.alltime[1]);
-      console.log(this.state.recent[1]);
-      
   }
-
   componentDidMount() {
       this.loadDataFromServer();
+  }
+  handleClick(e) {
+      console.log(e.target.id);
+      let col = e.target.id;
+      if (col === "alltime" && this.state.isRecentActive) {
+          this.setState( { isRecentActive: false } );
+      }
+      else if (col === "recent" && !this.state.isRecentActive ) {
+          this.setState( { isRecentActive: true } );
+      }
   }
   render() {
     return (
@@ -105,7 +143,11 @@ class App extends Component {
             <div className="row title">
             <img src="https://s3.amazonaws.com/freecodecamp/freecodecamp_logo.svg" alt="freecodecamp-logo" />
             </div>
-            <LeaderBoard data={this.state.alltime} />
+            <LeaderBoard
+               data={this.state.isRecentActive ? this.state.recent : this.state.alltime }
+               handleClick={this.handleClick.bind(this)}
+               isRecentActive={this.state.isRecentActive}
+            />
       </div>
     );
   }
