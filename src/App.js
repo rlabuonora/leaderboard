@@ -50,13 +50,13 @@ class LeaderBoard extends Component {
             );
         }.bind(this));
         return(
-                <div className="main row">
+                <div className="container main row">
                     <div className="row">
                         <h1> LeaderBoard </h1>
                     </div>
                     <div className="row">
-                    <div className="col-xs-12">
-                          <table className="table">
+                    <div className="">
+                          <table className="table table-striped">
                               <thead>
                                   <tr>
                                       <th>#</th>
