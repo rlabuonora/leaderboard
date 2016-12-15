@@ -1,7 +1,33 @@
 import React, { Component } from 'react';
 import './App.css';
+import $ from 'jquery';
 
 class App extends Component {
+  constructor() {
+      super();
+      this.state = {
+          data: []
+      }
+  }
+  loadDataFromServer() {
+      $.ajax({
+          url      : this.props.url,
+          dataType : 'json',
+          type     : 'GET',
+          success  : data => {
+              this.setState({ data: data });
+              console.log(this.state.data[0]);
+          },
+          error: (xhr, status, err) => {
+              console.error(this.props.url, status, err.toString());
+          }
+      })
+      
+  }
+
+  componentDidMount() {
+      this.loadDataFromServer();
+  }
   render() {
     return (
       <div className="container">

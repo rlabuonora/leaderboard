@@ -4,6 +4,8 @@ import App from './App';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <App
+    url={"https://fcctop100.herokuapp.com/api/fccusers/top/recent"}
+        />,
   document.getElementById('root')
 );
